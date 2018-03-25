@@ -6,8 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public GameObject bulletPrefab;
     float timer = 0;
-    float bulletSpeed = 300;
-    float coneSize = 250;
+    float bulletSpeed = 400;
+    float coneSize = 400;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
             float width = Random.value * coneSize + (-Random.value * coneSize);
             r.AddForce(Vector2.right * width + Vector2.down * bulletSpeed);
 
-            Destroy(bulletInstance, 2);
+            Destroy(bulletInstance, 2.5f);
         }
     }
     

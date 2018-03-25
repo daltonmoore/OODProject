@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameObject bulletPrefab;
-    float speed = 1f / 12f;
-    float bulletSpeed = 225;
+    public GameObject bulletPrefab, bulletSpawn;
+    float speed = 1f / 8f;
+    float bulletSpeed = 400;
 
 	// Use this for initialization
 	void Start ()
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameObject bulletInstance = Instantiate(bulletPrefab);
-            bulletInstance.transform.position = transform.position;
+            bulletInstance.transform.position = bulletSpawn.transform.position;
             Rigidbody2D r = bulletInstance.GetComponent<Rigidbody2D>();
             r.AddForce(Vector2.up * bulletSpeed);
             Destroy(bulletInstance, 2.5f);
