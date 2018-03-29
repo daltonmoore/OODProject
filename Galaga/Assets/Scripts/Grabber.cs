@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-class Speeder : Enemy
-{
-    
+public class Grabber : Enemy {
+
     public float stoppingDistance;
     public float retreatDistance;
     public int fireCount = 0;
@@ -30,7 +30,7 @@ class Speeder : Enemy
 
     public override void fire()
     {
-    
+
         if (timer + .75f + Random.value < Time.time)
         {
             timer = Time.time;
@@ -45,23 +45,13 @@ class Speeder : Enemy
         }
     }
 
-    private  void Update()
+    private void Update()
     {
-        waittime -= Time.deltaTime;
-        fire();
-        if (Vector2.Distance(transform.position, player.position ) > stoppingDistance)
+        //waittime -= Time.time;
+        if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
         {
-           
-            transform.position = Vector2.MoveTowards(transform.position, player.position + new Vector3 (0,-10) , speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, player.position + new Vector3(0,1), speed * Time.deltaTime);
         }
-
-        if(waittime < 0)
-        {
-            Destroy(gameObject);
-        }
-   
-
-
 
     }
 
@@ -77,12 +67,15 @@ class Speeder : Enemy
             Destroy(other.gameObject);
         }
 
-        if(other.tag == "Player")
-        {
-            Destroy(gameObject);
-            Destroy(other.gameObject);
-        }
-    
+    }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            transform.position = Vector2.MoveTowards(transform.position, startPosition, speed * Time.deltaTime);
+        }
     }
 }
+
+
