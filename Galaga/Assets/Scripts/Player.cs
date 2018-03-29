@@ -28,9 +28,18 @@ public class Player : MonoBehaviour
     {
         if (canMove)
         {
-            float x = Input.GetAxis("Horizontal");
+			// Get delta x
+			float x = Input.GetAxis("Horizontal");
 
-            transform.Translate(x * speed, 0, 0);
+			// Apply transformation
+			transform.Translate(x * speed, 0, 0);
+
+			// Clamp transformation
+			Vector3 position = transform.position;
+			position.x = Mathf.Clamp(position.x, -14.5f, 14.5f);
+
+			// Set position based on clamped position
+			transform.position = position;
         }
 
     }

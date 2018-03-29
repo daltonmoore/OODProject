@@ -59,10 +59,12 @@ public class Grabber : Enemy {
     {
         if (other.tag == "bullet")
         {
-            if (health == 0)
-                Destroy(gameObject);
-            else
-                health = health - 1;
+			if (health == 0) {
+				Destroy (gameObject);
+				GameState.SCORE += 100;
+			} else {
+				health = health - 1;
+			}
 
             Destroy(other.gameObject);
         }
