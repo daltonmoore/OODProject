@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+interface Enemy 
 {
-    public GameObject bulletPrefab;
-    protected float timer, bulletSpeed, coneSize;
 
-    public abstract void fire();
+    void Start();
 
-    private void Update()
-    {
-        fire();
-    }
+    void Update();
+
+    void Move();
+
+    void Fire();
+
+    void OnTriggerEnter2D(Collider2D other);
 }
+

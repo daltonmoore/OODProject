@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grabber : Enemy {
+public class Grabber : MonoBehaviour, Enemy {
 
+    public GameObject bulletPrefab;
+    public float timer = 0;
+    public float bulletSpeed = 300;
+    public float coneSize = 250;
     public float stoppingDistance;
     public float retreatDistance;
     public int fireCount = 0;
@@ -15,8 +19,9 @@ public class Grabber : Enemy {
     public float speed = 10f;
     public bool offsetIsCenter = true;
     public Vector2 offset;
+ 
 
-    private void Start()
+    public void Start()
     {
         bulletSpeed = 400;
         coneSize = 400;
@@ -28,7 +33,7 @@ public class Grabber : Enemy {
         }
     }
 
-    public override void fire()
+    public void Fire()
     {
 
         if (timer + .75f + Random.value < Time.time)
@@ -45,26 +50,29 @@ public class Grabber : Enemy {
         }
     }
 
-    private void Update()
+    public void Move()
+    {
+        
+    }
+
+    public void Update()
     {
         //waittime -= Time.time;
         if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position + new Vector3(0,1), speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, player.position + new Vector3(0,-10), speed * Time.deltaTime);
         }
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "bullet")
         {
-			if (health == 0) {
-				Destroy (gameObject);
-				GameState.SCORE += 100;
-			} else {
-				health = health - 1;
-			}
+            if (health == 0)
+                Destroy(gameObject);
+            else
+                health = health - 1;
 
             Destroy(other.gameObject);
         }

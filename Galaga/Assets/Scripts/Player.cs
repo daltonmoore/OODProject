@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab, bulletSpawn;
-    float speed = 1f / 8f;
+    float speed = 1f / 6f;
     float bulletSpeed = 400;
     private bool canMove = true;
     private Vector3 startPosition;
@@ -28,20 +28,24 @@ public class Player : MonoBehaviour
     {
         if (canMove)
         {
-			// Get delta x
-			float x = Input.GetAxis("Horizontal");
+            float x = Input.GetAxis("Horizontal");
+            if (x * speed > 0)
+            {
+                GetComponent<SpriteRenderer>().sprite =
+                Resources.Load<Sprite>("PlayerLSWip");
+            }
+            else if (x * speed == 0)
+            {
+                GetComponent<SpriteRenderer>().sprite =
+                Resources.Load<Sprite>("PlayerWip");
+            }
+            else
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerRSWip");
 
-			// Apply transformation
-			transform.Translate(x * speed, 0, 0);
-
-			// Clamp transformation
-			Vector3 position = transform.position;
-			position.x = Mathf.Clamp(position.x, -14.5f, 14.5f);
-
-			// Set position based on clamped position
-			transform.position = position;
+            transform.Translate(x * speed, 0, 0);
         }
 
+      
     }
 
     void fire()
@@ -61,7 +65,8 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "enemyBullet")
         {
-            Destroy(gameObject);
+            Destroy(other.gameObject);
+            GameState.die();
         }
 
     }
