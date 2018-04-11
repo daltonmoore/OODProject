@@ -12,5 +12,6 @@ interface Enemy
     void Fire();
 
     void OnTriggerEnter2D(Collider2D other);
+
 }
 

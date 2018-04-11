@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4998592205425494}
   - component: {fileID: 212641565627979652}
   - component: {fileID: 61105107527224294}
+  - component: {fileID: 114570610425957434}
   - component: {fileID: 50033290662978532}
+  - component: {fileID: 114786780733643374}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -36,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1489583805720906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0.12, y: 6.95, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,19 +76,60 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0023944378, y: 0.018878877}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.2}
+    oldSize: {x: 0.64, y: 0.72}
     newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.5741029, y: 0.6938263}
   m_EdgeRadius: 0
+--- !u!114 &114570610425957434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489583805720906}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5729b0f4440f0f44e8c563b94947d4a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  timer: 0
+  bulletSpeed: 300
+  coneSize: 250
+  stoppingDistance: 0
+  retreatDistance: 0
+  fireCount: 0
+  health: 2
+  startPosition: {x: 0, y: 0}
+  player: {fileID: 0}
+  waittime: 10
+  radius: 10
+  speed: 10
+  offsetIsCenter: 1
+  offset: {x: 0, y: 0}
+--- !u!114 &114786780733643374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489583805720906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e8331fb536f32d45a17bc19b1de9dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1774642528285786, guid: 905a2ea59b3c21f44b841c2b3f6fb225, type: 2}
+  enemy2: {fileID: 1534843827346758, guid: 1d02d804db4e1004284aa4814c4914e4, type: 2}
+  PUp: {fileID: 1085580608056274, guid: a61505f199af67940b460f3e00a0030b, type: 2}
+  point: {fileID: 4998592205425494}
 --- !u!212 &212641565627979652
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -118,10 +161,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2065741765
+  m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 1cf4a4bfb4d784148832e48f40e3f6d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

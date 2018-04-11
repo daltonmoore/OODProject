@@ -69,6 +69,13 @@ public class Player : MonoBehaviour
             GameState.die();
         }
 
+        if (other.tag == "PowerUp")
+        {
+            //other.GetComponent<Test>().giveTimer();
+            StartCoroutine(FireSpeed(other));
+            Destroy(other.gameObject);
+        }
+
     }
 
     void OnTriggerStay2D(Collider2D collision)
@@ -89,4 +96,14 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    IEnumerator FireSpeed(Collider2D other)
+    {
+        bulletSpeed = 600;
+        yield return new WaitForSeconds(other.GetComponent<PowerUpObject>().giveTimer());
+        bulletSpeed = 400;
+
+    }
 }
+
+

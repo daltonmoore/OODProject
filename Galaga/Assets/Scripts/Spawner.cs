@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour, Enemy
         if (Time.time > nextspawn)
         {
             nextspawn = spawnrate + nextspawn;
-            Instantiate(enemy, transform.position, Quaternion.identity);
+            //Instantiate(enemy, transform.position, Quaternion.identity);
         }
 
         if(Time.time > nextspawn2)
