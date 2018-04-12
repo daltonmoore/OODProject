@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212496675123945104}
   - component: {fileID: 61469077192803134}
   - component: {fileID: 50780197449749328}
-  - component: {fileID: 114615548854026786}
+  - component: {fileID: 114844763046169974}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,16 +79,16 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.2}
+    oldSize: {x: 0.32, y: 0.36}
     newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.2, y: 0.1}
   m_EdgeRadius: 0
---- !u!114 &114615548854026786
+--- !u!114 &114844763046169974
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,17 +96,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1534843827346758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46682c1c4f4917847899f1d4cbf69f4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ffba19e2bf5c00468c09fb171665fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1654375273546442, guid: d1eb09b95b2286848991e6b2bd6fe625,
     type: 2}
-  PUp: {fileID: 1803191696707862, guid: effca84b30a87fc49b67b9af1688ae1c, type: 2}
   timer: 0
   bulletSpeed: 300
   coneSize: 250
   speed: 30
-  test: {fileID: 21300000, guid: 6f0703f305849c74093fe09379046e94, type: 3}
 --- !u!212 &212496675123945104
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -141,7 +139,7 @@ SpriteRenderer:
   m_SortingLayerID: -2065741765
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 4555467921bba874dbfd2044663ae6e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212340004495226874}
   - component: {fileID: 61668267927448908}
   - component: {fileID: 50288872915397264}
-  - component: {fileID: 114023022040687934}
+  - component: {fileID: 114523141322588406}
   m_Layer: 0
   m_Name: Speeder
-  m_TagString: grabber
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
---- !u!114 &114023022040687934
+--- !u!114 &114523141322588406
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,19 +96,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774642528285786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c33b46726b3de164b89683c7b1e728f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fe9648badb953c43b62dc4a794b6e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
   timer: 0
   bulletSpeed: 300
   coneSize: 250
   fireCount: 0
-  health: 2
   startPosition: {x: 0, y: 0}
   player: {fileID: 0}
   radius: 10
-  speed: 12
+  speed: 13
   offsetIsCenter: 1
   offset: {x: 0, y: 0}
 --- !u!212 &212340004495226874

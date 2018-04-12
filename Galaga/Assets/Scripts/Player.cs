@@ -5,15 +5,17 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab, bulletSpawn;
+    public GameState gameState;
     float speed = 1f / 6f;
     float bulletSpeed = 400;
     private bool canMove = true;
-    private Vector3 startPosition;
+    public Vector3 startPosition;
 
     // Use this for initialization
     void Start()
     {
         startPosition = gameObject.transform.position;
+        gameState = GameObject.Find("GameState").GetComponent<GameState>();
     }
 
     // Update is called once per frame
@@ -63,17 +65,10 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "enemyBullet")
+        if (other.tag == "enemyBullet" || other.tag == "enemy")
         {
             Destroy(other.gameObject);
-            GameState.die();
-        }
-
-        if (other.tag == "PowerUp")
-        {
-            //other.GetComponent<Test>().giveTimer();
-            StartCoroutine(FireSpeed(other));
-            Destroy(other.gameObject);
+            gameState.die(this.gameObject);
         }
 
     }
@@ -83,8 +78,8 @@ public class Player : MonoBehaviour
         if (collision.tag == "grabber")
         {
             canMove = false;
-            transform.position = Vector2.MoveTowards(transform.position, collision.transform.position + new Vector3(0, -1), 4 * Time.deltaTime);
-
+            transform.position = Vector2.MoveTowards(transform.position, collision.transform.position + 
+                new Vector3(0, -1), 4 * Time.deltaTime);
         }
     }
 
@@ -94,16 +89,5 @@ public class Player : MonoBehaviour
         {
             canMove = true;
         }
-
-    }
-
-    IEnumerator FireSpeed(Collider2D other)
-    {
-        bulletSpeed = 600;
-        yield return new WaitForSeconds(other.GetComponent<PowerUpObject>().giveTimer());
-        bulletSpeed = 400;
-
     }
 }
-
-
