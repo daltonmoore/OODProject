@@ -6,6 +6,7 @@ public class Turret : MonoBehaviour, Enemy
 {
 
     public GameObject bulletPrefab;
+    public GameObject PUp;
     public float timer = 0;
     public float bulletSpeed = 300;
     public float coneSize = 250;
@@ -63,9 +64,15 @@ public class Turret : MonoBehaviour, Enemy
     {
         if (other.tag == "bullet")
         {
+            SpawnPUp();
             Destroy(gameObject);
             Destroy(other.gameObject);
             GameState.SCORE += 100;
         }
+    }
+
+    public void SpawnPUp()
+    {
+        Instantiate(PUp, transform.position, transform.rotation);
     }
 }

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1654375273546442, guid: d1eb09b95b2286848991e6b2bd6fe625,
     type: 2}
+  PUp: {fileID: 1803191696707862, guid: 903f545fd6ce7164c9372e22d61b8438, type: 2}
   timer: 0
   bulletSpeed: 300
   coneSize: 250
