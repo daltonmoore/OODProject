@@ -12,6 +12,7 @@ class Bee : MonoBehaviour
     State initialState, attackingState;
 
     State currentState;
+    bool flag;
 
     private void Start()
     {
@@ -23,7 +24,10 @@ class Bee : MonoBehaviour
 
     private void Update()
     {
-        flyIn();
+        if (flag)
+        {
+            flyIn();
+        }
         wait();
         attack();
     }
