@@ -301,7 +301,9 @@
     <Compile Include="Assets\Scripts\PowerUpObject.cs" />
     <Compile Include="Assets\Scripts\StatePattern\AttackingStateBee.cs" />
     <Compile Include="Assets\Scripts\StatePattern\Bee.cs" />
+    <Compile Include="Assets\Scripts\StatePattern\DragonFly.cs" />
     <Compile Include="Assets\Scripts\StatePattern\InitialStateBee.cs" />
+    <Compile Include="Assets\Scripts\StatePattern\InitialStateDragonFly.cs" />
     <Compile Include="Assets\Scripts\StatePattern\ResetStateBee.cs" />
     <Compile Include="Assets\Scripts\StatePattern\State.cs" />
     <Compile Include="Assets\Scripts\ui\TitleScreenButtons.cs" />

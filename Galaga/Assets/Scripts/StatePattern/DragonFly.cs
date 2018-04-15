@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class Bee : MonoBehaviour
-{ 
+class DragonFly : MonoBehaviour
+{
     public Vector3 endPos;
 
     State initialState, attackingState, resetSate;
@@ -15,7 +15,7 @@ class Bee : MonoBehaviour
 
     private void Start()
     {
-        initialState = gameObject.AddComponent(typeof(InitialStateBee)) as InitialStateBee;
+        initialState = gameObject.AddComponent(typeof(InitialStateDragonFly)) as InitialStateDragonFly;
         attackingState = gameObject.AddComponent(typeof(AttackingStateBee)) as AttackingStateBee;
         resetSate = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
 
@@ -29,7 +29,7 @@ class Bee : MonoBehaviour
         {
             flyIn();
         }
-        if(!currentState.flag)
+        if (!currentState.flag)
         {
             endPos = currentState.endPos;
             flyIn();
@@ -56,12 +56,12 @@ class Bee : MonoBehaviour
             reset();
             currentState = initialState;
         }
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "bullet")
+        if (collision.tag == "bullet")
         {
             Destroy(gameObject);
         }
