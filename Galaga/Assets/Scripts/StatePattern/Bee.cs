@@ -6,30 +6,57 @@ using System.Text;
 using UnityEngine;
 
 class Bee : MonoBehaviour
-{
+{ 
     public Vector3 endPos;
 
-    State initialState, attackingState;
+    State initialState, attackingState, resetSate;
 
-    State currentState;
-    bool flag;
+    public State currentState;
 
     private void Start()
     {
         initialState = gameObject.AddComponent(typeof(InitialStateBee)) as InitialStateBee;
         attackingState = gameObject.AddComponent(typeof(AttackingStateBee)) as AttackingStateBee;
-        
+        resetSate = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
+
         currentState = initialState;
+        currentState.flag = true;
     }
 
     private void Update()
     {
-        if (flag)
+        if (currentState.flag)
         {
             flyIn();
         }
-        wait();
-        attack();
+        if(!currentState.flag)
+        {
+            endPos = currentState.endPos;
+            flyIn();
+        }
+        if (currentState.inPos)
+        {
+            wait();
+        }
+        if (currentState.doneWaiting)
+        {
+            currentState.doneWaiting = false;
+            currentState = attackingState;
+        }
+        if (currentState == attackingState)
+        {
+            attack();
+            if (currentState.resetFlag)
+            {
+                currentState = resetSate;
+            }
+        }
+        else if (currentState == resetSate)
+        {
+            reset();
+            currentState = initialState;
+        }
+        
     }
 
     public void flyIn()
@@ -45,6 +72,11 @@ class Bee : MonoBehaviour
     public void attack()
     {
         currentState.attack();
+    }
+
+    public void reset()
+    {
+        currentState.reset();
     }
 }
 
