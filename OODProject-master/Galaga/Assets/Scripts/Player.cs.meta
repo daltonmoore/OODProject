@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 68f623ff08928d94e81524d00edd39fe
+timeCreated: 1521518179
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bulletPrefab: {instanceID: 0}
+  - bulletSpawn: {instanceID: 0}
+  - gameState: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
