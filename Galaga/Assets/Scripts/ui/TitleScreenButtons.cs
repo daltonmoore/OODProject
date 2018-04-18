@@ -15,7 +15,6 @@ public class TitleScreenButtons : MonoBehaviour
 	void Start ()
     {
         startButton.onClick.AddListener(onStartClick);
-        optionsButton.onClick.AddListener(onOptionsClick);
         exitButton.onClick.AddListener(onExitClick);
     }
 

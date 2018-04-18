@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
 
         if (other.tag == "PowerUp")
         {
-            StartCoroutine(FireSpeed(other));
+            StartCoroutine(other.GetComponent<PowerUpObject>().powerup(this));
             Destroy(other.gameObject);
         }
 
@@ -85,23 +85,7 @@ public class Player : MonoBehaviour
         {
             canMove = false;
             transform.position = Vector2.MoveTowards(transform.position, collision.transform.position + 
-                new Vector3(0, -1), 4 * Time.deltaTime);
+                new Vector3(0, 10), 10 * Time.deltaTime);
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "grabber")
-        {
-            canMove = true;
-        }
-    }
-
-    IEnumerator FireSpeed(Collider2D other)
-    {
-        bulletSpeed = 600;
-        yield return new WaitForSeconds(other.GetComponent<PowerUpObject>().giveTimer());
-        bulletSpeed = 400;
-
     }
 }

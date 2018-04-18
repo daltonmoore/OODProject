@@ -2,30 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grabber : MonoBehaviour, Enemy {
+public class Grabber : MonoBehaviour, Enemy
+{
 
-    public GameObject bulletPrefab;
-    public float timer = 0;
-    public float bulletSpeed = 300;
-    public float coneSize = 250;
-    public float stoppingDistance;
-    public float retreatDistance;
-    public int fireCount = 0;
+    public float attackTimer = 10;
+    public float nextAttack;
     public int health = 2;
-    public Vector2 startPosition;
     public Transform player;
-    public float waittime = 1f;
-    public float radius = 10f;
-    public float speed = 10f;
+    public float speed = 10;
+    public float frequency = 20f;
+    public float magnitude = .5f;
+    public Vector3 startPosition, pos, localscale, movePosition;
     public bool offsetIsCenter = true;
     public Vector2 offset;
- 
+    bool facingRight = true;
+    bool miss = false;
+    static int random;
+    private Rigidbody2D body;
+    DistanceJoint2D distanceJoint2D;
 
     public void Start()
     {
-        bulletSpeed = 400;
-        coneSize = 400;
+
+        random = Random.Range(-3, 0);
         startPosition = gameObject.transform.position;
+        pos = gameObject.transform.position;
+        localscale = transform.localScale;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if (offsetIsCenter)
         {
@@ -35,36 +37,81 @@ public class Grabber : MonoBehaviour, Enemy {
 
     public void Fire()
     {
-
-        if (timer + .75f + Random.value < Time.time)
-        {
-            timer = Time.time;
-            GameObject bulletInstance = Instantiate(bulletPrefab);
-            bulletInstance.transform.position = transform.position;
-            Rigidbody2D r = bulletInstance.GetComponent<Rigidbody2D>();
-
-            float width = Random.value * coneSize + (-Random.value * coneSize);
-            r.AddForce(Vector2.right * width + Vector2.down * bulletSpeed);
-
-            Destroy(bulletInstance, 2.5f);
-        }
+        attackTimer = 10;
     }
 
     public void Move()
     {
-        
+
     }
 
     public void Update()
     {
-        //waittime -= Time.time;
-        if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
+
+
+        attackTimer -= Time.deltaTime;
+        CheckMiss();
+        if (attackTimer > 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position + new Vector3(0,-10), speed * Time.deltaTime);
+
+            CheckWhereToFace();
+            if (facingRight)
+            {
+                moveRight();
+            }
+            else
+                moveLeft();
+        }
+        else if (attackTimer < 0 && !miss)
+        {
+
+            transform.position = Vector3.MoveTowards(transform.position, player.position + new Vector3(0, random), speed * Time.deltaTime);
+
+        }
+        else if (miss)
+        {
+            movetoStart();
+        }
+
+        if (transform.position.y > 200)
+        {
+            Destroy(this.gameObject);
         }
 
     }
 
+    void CheckMiss()
+    {
+        if (transform.position.y < player.position.y)
+        {
+
+            print("Miss = true");
+            miss = true;
+        }
+    }
+
+    void CheckWhereToFace()
+    {
+        if (pos.x < -7f)
+            facingRight = true;
+        else if (pos.x > 7f)
+            facingRight = false;
+        if ((((facingRight) && (localscale.x < 0) || ((!facingRight) && localscale.x > 0))))
+            localscale.x *= -1;
+        transform.localScale = localscale;
+    }
+
+    void moveRight()
+    {
+        pos += transform.right * Time.deltaTime * speed;
+        transform.position = pos + transform.up * Mathf.Sin(Time.time * frequency) * magnitude;
+    }
+
+    void moveLeft()
+    {
+        pos -= transform.right * Time.deltaTime * speed;
+        transform.position = pos + transform.up * Mathf.Sin(Time.time * frequency) * magnitude;
+    }
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "bullet")
@@ -77,15 +124,49 @@ public class Grabber : MonoBehaviour, Enemy {
             Destroy(other.gameObject);
         }
 
+
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (collision.tag == "Player")
+        if (other.tag == "Player")
         {
-            transform.position = Vector2.MoveTowards(transform.position, startPosition, speed * Time.deltaTime);
+            print("Success stay");
+            transform.position = Vector3.MoveTowards(transform.position, startPosition + new Vector3(0, 10), 30 * Time.deltaTime);
+
         }
     }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            print("left collider");
+
+
+
+
+        }
+    }
+
+
+    void movetoStart()
+    {
+
+        transform.position = Vector3.MoveTowards(transform.position, startPosition, speed * Time.deltaTime);
+
+        if (transform.position.Equals(startPosition))
+        {
+            miss = false;
+            Fire();
+            pos = startPosition;
+        }
+    }
+
+
+
+
 }
+
 
 

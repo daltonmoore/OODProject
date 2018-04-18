@@ -7,7 +7,7 @@ public class GameState : MonoBehaviour {
     public static Spawner spawner;
 	public static int SCORE = 0;
 	public static int LIVES = 3;
-	public static int TIME_ALIVE = 0;
+	public static float TIME_ALIVE = 0;
     public bool gameStart = false;
     public bool gameOver = false;
     public static double respawnTimer;
@@ -18,6 +18,11 @@ public class GameState : MonoBehaviour {
     int killCount = 0;
     float nextspawn = 3;
     float nextspawn2 = 5;
+
+    public float getTime()
+    {
+        return TIME_ALIVE;
+    }
 
     public void printPhase()
     {
@@ -57,18 +62,7 @@ public class GameState : MonoBehaviour {
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("SpawnerAction");
         }
-        if (Time.time > nextspawn2 - .5)
-        {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("SpawnerAction");
-        }
-        if (Time.time > nextspawn)
-        {
-            spawner.Fire();
-        }
-        if (Time.time > nextspawn2)
-        {
-            spawner.Fire();
-        }
+
     }
 
     private void Awake()
@@ -107,11 +101,12 @@ public class GameState : MonoBehaviour {
             respawnTimer -= Time.deltaTime;
             if(respawnTimer < 0)
             {
-                Instantiate(  player, player.transform.position, Quaternion.identity);
+                Instantiate( player, player.transform.position, Quaternion.identity);
                 dead = false;
             }
         }
-		TIME_ALIVE = TIME_ALIVE + 1; // Maybe this can be used somewhere?
+        if(!dead)
+		    TIME_ALIVE = TIME_ALIVE + Time.deltaTime; // Maybe this can be used somewhere?
 	}
 
     void GameOver()

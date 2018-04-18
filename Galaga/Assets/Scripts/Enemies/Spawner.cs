@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour, Enemy
+public class Spawner : MonoBehaviour
 {
     private static Spawner instance;
     private GameState gameState;
@@ -13,7 +13,8 @@ public class Spawner : MonoBehaviour, Enemy
     float spawnrate2 = 6;
     public GameObject enemy;
     public GameObject enemy2;
-    int c1= 0, c2 = 0;
+    public GameObject enemy3;
+    bool left;
     int counter = 0;
     int TECount = 0;
     int maxE = 10;
@@ -48,9 +49,13 @@ public class Spawner : MonoBehaviour, Enemy
 
     public void Update()
     {
-        if (Time.time < 3)
+        if (transform.position.y > 6)
         {
             transform.Translate(0, -speed, 0);
+        }
+        else {
+            float dy = transform.position.y - 6;
+            transform.Translate(0, -dy, 0);
         }
 
         if (moveable)
@@ -62,21 +67,19 @@ public class Spawner : MonoBehaviour, Enemy
 
     public void Move()
     {
-        c1++;
-        if (c1 < 300 && c2 == 0)
+        float dx = speed * phase.getPhase() * (left?-1:1);
+        if (GameState.dead)
+            dx = 0;
+        transform.Translate(dx, 0, 0);
+
+        float maxWid = 12f;
+        if (transform.position.x > maxWid || transform.position.x < -maxWid)
         {
-            transform.Translate(speed, 0, 0);
+            left = !left;
         }
-        else
-        {
-            c2++;
-            transform.Translate(-speed, 0, 0);
-        }
-        if (c2 > 600)
-        {
-            c1 = -300;
-            c2 = 0;
-        }
+
+
+
     } 
 
     public void prepareFire()
@@ -84,19 +87,38 @@ public class Spawner : MonoBehaviour, Enemy
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("SpawnerAction");
     }
 
-    public void Fire()
+    public void Fire(int p)
     {
-        if (Time.time > nextspawn && (phase.getCounter() % 4) != 0)
+        //print("success");
+        if(GameState.dead )
         {
-            Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+            return;
         }
-        if (Time.time > nextspawn && (phase.getCounter() % 4) == 0)
+
+        if (p == 1)
         {
-            Instantiate(enemy2, transform.position + new Vector3(0, -1), Quaternion.identity);
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+            if (gameState.getTime() > nextspawn && (phase.getCounter() % 4) != 0)
+            {
+             
+                Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+            }
+
         }
-        
+        if(p >= 2)
+        {
+            if (gameState.getTime() > nextspawn && (phase.getCounter() % 4) != 0)
+            {
+                Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+            }
+            if (gameState.getTime() > nextspawn && (phase.getCounter() % 4) == 0)
+            {
+                Instantiate(enemy2, transform.position + new Vector3(0, -1), Quaternion.identity);
+                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+            }
+        }
+
     }
 
     public void OnTriggerEnter2D(Collider2D other)

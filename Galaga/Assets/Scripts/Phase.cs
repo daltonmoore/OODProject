@@ -15,6 +15,11 @@ public class Phase : MonoBehaviour {
     bool pause = false;
     float pauseT;
 
+    public int getPhase()
+    {
+        return phase;
+    }
+
     // Use this for initialization
     void Start () {
         printPhase();
@@ -37,7 +42,7 @@ public class Phase : MonoBehaviour {
             if (Time.time > nextspawn)
             {
                 nextspawn += spawnrate;
-                spawner.Fire();
+                spawner.Fire(phase);
                 counter++;
                 print(counter);
             }
@@ -60,6 +65,7 @@ public class Phase : MonoBehaviour {
                 maxEnemyCount += 10;
                 phase++;
                 printPhase();
+                spawnrate = spawnrate - 0.5f;
                 spawner.unpauseSpawner();
             }
         }
