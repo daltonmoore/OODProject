@@ -9,9 +9,13 @@ public class BlankPowerUp : Powerup {
 	}
 
 	public override IEnumerator powerup(Player player) {
-		float ret = player.bulletSpeed;
-		player.bulletSpeed = 750;
-		yield return new WaitForSeconds(getTimer());
-		player.bulletSpeed = ret;
+        lock(player){
+            float ret = player.bulletSpeed;
+            player.bulletSpeed = 750;
+            player.setPS(true);
+            yield return new WaitForSeconds(getTimer());
+            player.bulletSpeed = ret;
+            player.setPS(false);
+        }
 	}
 }

@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public float bulletSpeed = 400;
     private bool canMove = true;
     public Vector3 startPosition;
+    private bool PowerUpState = false;
+
 
     // Use this for initialization
     void Start()
@@ -30,21 +32,42 @@ public class Player : MonoBehaviour
     {
         if (canMove)
         {
-            float x = Input.GetAxis("Horizontal");
-            if (x * speed > 0)
+            if (PowerUpState == false)
             {
-                GetComponent<SpriteRenderer>().sprite =
-                Resources.Load<Sprite>("PlayerLSWip");
-            }
-            else if (x * speed == 0)
-            {
-                GetComponent<SpriteRenderer>().sprite =
-                Resources.Load<Sprite>("PlayerWip");
+                float x = Input.GetAxis("Horizontal");
+                if (x * speed > 0)
+                {
+                    GetComponent<SpriteRenderer>().sprite =
+                    Resources.Load<Sprite>("PlayerLSWip");
+                }
+                else if (x * speed == 0)
+                {
+                    GetComponent<SpriteRenderer>().sprite =
+                    Resources.Load<Sprite>("PlayerWip");
+                }
+                else
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerRSWip");
+
+                transform.Translate(x * speed, 0, 0);
             }
             else
-                GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerRSWip");
+            {
+                float x = Input.GetAxis("Horizontal");
+                if (x * speed > 0)
+                {
+                    GetComponent<SpriteRenderer>().sprite =
+                    Resources.Load<Sprite>("PlayerBLSWip");
+                }
+                else if (x * speed == 0)
+                {
+                    GetComponent<SpriteRenderer>().sprite =
+                    Resources.Load<Sprite>("PlayerBWip");
+                }
+                else
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerBRSWip");
 
-            transform.Translate(x * speed, 0, 0);
+                transform.Translate(x * speed, 0, 0);
+            }
         }
 
       
@@ -89,4 +112,10 @@ public class Player : MonoBehaviour
                 new Vector3(0, 10), 10 * Time.deltaTime);
         }*/
     }
+
+    public void setPS(bool val)
+    {
+        PowerUpState = val;
+    }
+
 }
