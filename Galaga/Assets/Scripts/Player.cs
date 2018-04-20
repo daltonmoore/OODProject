@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public GameObject bulletPrefab, bulletSpawn;
     public GameState gameState;
     float speed = 1f / 6f;
-    float bulletSpeed = 400;
+    public float bulletSpeed = 400;
     private bool canMove = true;
     public Vector3 startPosition;
 
@@ -73,7 +73,8 @@ public class Player : MonoBehaviour
 
         if (other.tag == "PowerUp")
         {
-            StartCoroutine(other.GetComponent<PowerUpObject>().powerup(this));
+			Powerup p = other.gameObject.GetComponent<Powerup>();
+			StartCoroutine(p.powerup(this));
             Destroy(other.gameObject);
         }
 
@@ -81,11 +82,11 @@ public class Player : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "grabber")
+      /*  if (collision.tag == "grabber")
         {
             canMove = false;
             transform.position = Vector2.MoveTowards(transform.position, collision.transform.position + 
                 new Vector3(0, 10), 10 * Time.deltaTime);
-        }
+        }*/
     }
 }

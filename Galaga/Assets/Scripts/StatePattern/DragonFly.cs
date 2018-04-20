@@ -9,7 +9,7 @@ class DragonFly : MonoBehaviour
 {
     public Vector3 endPos;
 
-    State initialState, attackingState, resetState;
+    State initialState, attackingState, resetSate;
 
     public State currentState;
 
@@ -17,14 +17,14 @@ class DragonFly : MonoBehaviour
     {
         initialState = gameObject.AddComponent(typeof(InitialStateDragonFly)) as InitialStateDragonFly;
         attackingState = gameObject.AddComponent(typeof(AttackingStateBee)) as AttackingStateBee;
-        resetState = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
+        resetSate = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
 
         currentState = initialState;
         currentState.flag = true;
     }
 
     private void Update()
-    { 
+    {
         if (currentState.flag)
         {
             flyIn();
@@ -43,19 +43,15 @@ class DragonFly : MonoBehaviour
             currentState.doneWaiting = false;
             currentState = attackingState;
         }
-        if (GameState.dead)
-        {
-            currentState = resetState;
-        }
         if (currentState == attackingState)
         {
             attack();
             if (currentState.resetFlag)
             {
-                currentState = resetState;
+                currentState = resetSate;
             }
         }
-        else if (currentState == resetState)
+        else if (currentState == resetSate)
         {
             reset();
             currentState = initialState;

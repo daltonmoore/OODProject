@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class BlankPowerUp : Powerup
-{
+public class BlankPowerUp : Powerup {
 
+	public override int getTimer() {
+		return 10;
+	}
 
-    public override void Decorate()
-    {
-
-    }
-
-    IEnumerator powerup( Player player )
-        player.bulletSpeed = 600;
-        yield return new WaitForSeconds(giveTimer());
-        playerbulletSpeed = 400;
-    }
+	public override IEnumerator powerup(Player player) {
+		float ret = player.bulletSpeed;
+		player.bulletSpeed = 750;
+		yield return new WaitForSeconds(getTimer());
+		player.bulletSpeed = ret;
+	}
 }

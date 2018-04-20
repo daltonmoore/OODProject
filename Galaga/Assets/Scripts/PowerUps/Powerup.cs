@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class Powerup {
-
-    public abstract void Decorate();
-    public int Timer;
+public abstract class Powerup : MonoBehaviour {
+	public abstract int getTimer();
+	public abstract IEnumerator powerup(Player player);
 }

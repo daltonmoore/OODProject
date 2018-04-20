@@ -6,10 +6,10 @@ using System.Text;
 using UnityEngine;
 
 class Bee : MonoBehaviour
-{
+{ 
     public Vector3 endPos;
 
-    State initialState, attackingState, resetState;
+    State initialState, attackingState, resetSate;
 
     public State currentState;
 
@@ -17,7 +17,7 @@ class Bee : MonoBehaviour
     {
         initialState = gameObject.AddComponent(typeof(InitialStateBee)) as InitialStateBee;
         attackingState = gameObject.AddComponent(typeof(AttackingStateBee)) as AttackingStateBee;
-        resetState = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
+        resetSate = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
 
         currentState = initialState;
         currentState.flag = true;
@@ -38,10 +38,6 @@ class Bee : MonoBehaviour
         {
             wait();
         }
-        if (GameState.dead)
-        {
-            currentState = resetState;
-        }
         if (currentState.doneWaiting)
         {
             currentState.doneWaiting = false;
@@ -52,10 +48,10 @@ class Bee : MonoBehaviour
             attack();
             if (currentState.resetFlag)
             {
-                currentState = resetState;
+                currentState = resetSate;
             }
         }
-        else if (currentState == resetState)
+        else if (currentState == resetSate)
         {
             reset();
             currentState = initialState;

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61375981071211780}
   - component: {fileID: 50260374908840286}
   - component: {fileID: 212133018793017046}
-  - component: {fileID: 114462262773327828}
+  - component: {fileID: 114451730761613082}
   m_Layer: 0
   m_Name: BlankPower
   m_TagString: PowerUp
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.58, y: 3.47}
   m_EdgeRadius: 0
---- !u!114 &114462262773327828
+--- !u!114 &114451730761613082
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803191696707862}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdda1a83ee4353c4c953c1301c5a9537, type: 3}
+  m_Script: {fileID: 11500000, guid: 201b3e3bfed957443971d4d9ec92f845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212133018793017046

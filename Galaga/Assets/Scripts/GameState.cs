@@ -105,12 +105,12 @@ public class GameState : MonoBehaviour {
                 dead = false;
             }
         }
-        if(!dead)
-		    TIME_ALIVE = TIME_ALIVE + Time.deltaTime; // Maybe this can be used somewhere?
+		if (!dead) {
+			TIME_ALIVE = TIME_ALIVE + Time.deltaTime;
+		}
 	}
 
-    void GameOver()
-    {
+    void GameOver() {
         gameOver = true;
         print("Game Over");
     }

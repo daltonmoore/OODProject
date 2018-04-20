@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Phase : MonoBehaviour {
 
+    GameObject enemy;
     GameState instance;
     Spawner spawner;
     int maxEnemyCount = 5;
@@ -42,7 +43,7 @@ public class Phase : MonoBehaviour {
             if (Time.time > nextspawn)
             {
                 nextspawn += spawnrate;
-                spawner.Fire(phase);
+                enemy = spawner.Fire(phase);
                 counter++;
                 print(counter);
             }

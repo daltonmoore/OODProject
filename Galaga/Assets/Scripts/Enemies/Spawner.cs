@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private static Spawner instance;
+    private static Spawner uniqueInstance = new Spawner();
     private GameState gameState;
     private Phase phase;
     float spawnrate = 3;
@@ -23,6 +23,9 @@ public class Spawner : MonoBehaviour
     static bool defeatable = false;
     static bool moveable = true;
 
+    private Spawner() { 
+}
+
     public void Start()
     {
 
@@ -30,7 +33,6 @@ public class Spawner : MonoBehaviour
 
     public void Awake()
     {
-        instance = GameObject.Find("Spawner").GetComponent<Spawner>();
         gameState = GameObject.Find("GameState").GetComponent<GameState>();
         phase = GameObject.Find("Phase").GetComponent<Phase>();
     }
@@ -87,12 +89,12 @@ public class Spawner : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("SpawnerAction");
     }
 
-    public void Fire(int p)
+    public GameObject Fire(int p)
     {
         //print("success");
         if(GameState.dead )
         {
-            return;
+            return null;
         }
 
         if (p == 1)
@@ -100,8 +102,8 @@ public class Spawner : MonoBehaviour
             if (gameState.getTime() > nextspawn && (phase.getCounter() % 4) != 0)
             {
              
-                Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+                return Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
             }
 
         }
@@ -109,16 +111,18 @@ public class Spawner : MonoBehaviour
         {
             if (gameState.getTime() > nextspawn && (phase.getCounter() % 4) != 0)
             {
-                Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
+                
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+                return Instantiate(enemy, transform.position + new Vector3(0, -3), Quaternion.identity);
             }
             if (gameState.getTime() > nextspawn && (phase.getCounter() % 4) == 0)
             {
-                Instantiate(enemy2, transform.position + new Vector3(0, -1), Quaternion.identity);
+                
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spawner");
+                return Instantiate(enemy2, transform.position + new Vector3(0, -1), Quaternion.identity);
             }
         }
-
+        return null;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -136,11 +140,11 @@ public class Spawner : MonoBehaviour
     public static Spawner getFactory()
     {
         //Keyword lock behaves similarly to java's synchronized keyword
-        lock (instance)
+        lock (uniqueInstance)
         {
-            if (instance == null)
-                instance = GameObject.Find("Spawner").GetComponent<Spawner>();
-            return instance;
+            /*if (uniqueInstance == null)
+                uniqueInstance = GameObject.Find("Spawner").GetComponent<Spawner>();*/
+            return uniqueInstance;
         }
     }
 
