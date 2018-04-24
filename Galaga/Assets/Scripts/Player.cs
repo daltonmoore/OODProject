@@ -6,11 +6,12 @@ public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab, bulletSpawn;
     public GameState gameState;
-    float speed = 1f / 6f;
+    public float speed = 1f / 6f;
     public float bulletSpeed = 400;
     private bool canMove = true;
     public Vector3 startPosition;
     private bool PowerUpState = false;
+    private bool scatter = false;
 
 
     // Use this for initialization
@@ -77,12 +78,35 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject bulletInstance = Instantiate(bulletPrefab);
-            bulletInstance.transform.position = bulletSpawn.transform.position;
-            Rigidbody2D r = bulletInstance.GetComponent<Rigidbody2D>();
-            r.AddForce(Vector2.up * bulletSpeed);
-            Destroy(bulletInstance, 2.5f);
-
+            if (scatter == false)
+            {
+                GameObject bulletInstance = Instantiate(bulletPrefab);
+                bulletInstance.transform.position = bulletSpawn.transform.position;
+                Rigidbody2D r = bulletInstance.GetComponent<Rigidbody2D>();
+                r.AddForce(Vector2.up * bulletSpeed);
+                //r.AddForce(Vector2.left * 100);
+                Destroy(bulletInstance, 2.5f);
+            }
+            else
+            {
+                GameObject bulletInstance = Instantiate(bulletPrefab);
+                GameObject bulletInstance2 = Instantiate(bulletPrefab);
+                GameObject bulletInstance3 = Instantiate(bulletPrefab);
+                bulletInstance.transform.position = bulletSpawn.transform.position;
+                bulletInstance2.transform.position = bulletSpawn.transform.position;
+                bulletInstance3.transform.position = bulletSpawn.transform.position;
+                Rigidbody2D r = bulletInstance.GetComponent<Rigidbody2D>();
+                Rigidbody2D r2 = bulletInstance2.GetComponent<Rigidbody2D>();
+                Rigidbody2D r3 = bulletInstance3.GetComponent<Rigidbody2D>();
+                r.AddForce(Vector2.up * bulletSpeed);
+                r2.AddForce(Vector2.up * bulletSpeed);
+                r3.AddForce(Vector2.up * bulletSpeed);
+                r2.AddForce(Vector2.left * 100);
+                r3.AddForce(Vector2.right * 100);
+                Destroy(bulletInstance, 2.5f);
+                Destroy(bulletInstance2, 2.5f);
+                Destroy(bulletInstance3, 2.5f);
+            }
         }
     }
 
@@ -96,8 +120,9 @@ public class Player : MonoBehaviour
 
         if (other.tag == "PowerUp")
         {
-			Powerup p = other.gameObject.GetComponent<Powerup>();
-			StartCoroutine(p.powerup(this));
+            Powerup p = other.gameObject.GetComponent<Powerup>();
+            StartCoroutine(p.powerup(this));
+            //other.gameObject.GetComponent<PwrUpController>().runPwrUp(this);
             Destroy(other.gameObject);
         }
 
@@ -116,6 +141,17 @@ public class Player : MonoBehaviour
     public void setPS(bool val)
     {
         PowerUpState = val;
+    }
+
+    public void setScatter(bool val)
+    {
+        scatter = val;
+        Debug.Log("scatter changing");
+    }
+
+    public void addLife()
+    {
+        gameState.AddLife(this.gameObject);
     }
 
 }

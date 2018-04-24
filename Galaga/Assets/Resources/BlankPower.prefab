@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61375981071211780}
   - component: {fileID: 50260374908840286}
   - component: {fileID: 212133018793017046}
-  - component: {fileID: 114451730761613082}
+  - component: {fileID: 114631661212312974}
   m_Layer: 0
   m_Name: BlankPower
   m_TagString: PowerUp
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.58, y: 3.47}
   m_EdgeRadius: 0
---- !u!114 &114451730761613082
+--- !u!114 &114631661212312974
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlankPowerUp : Powerup {
+    float speed;
 
-	public override int getTimer() {
-		return 10;
-	}
+    public override void Change(Player player)
+    {
+        player.setPS(true);
+        speed = player.bulletSpeed;
+        player.bulletSpeed = 750;
+    }
 
-	public override IEnumerator powerup(Player player) {
-            float ret = player.bulletSpeed;
-            player.bulletSpeed = 750;
-            player.setPS(true);
-            yield return new WaitForSeconds(getTimer());
-            player.bulletSpeed = ret;
-            player.setPS(false);
-        
-	}
+    public override float getTimer()
+    {
+        return 10;
+    }
+
+    public override void Revert(Player player)
+    {
+        player.setPS(false);
+        player.bulletSpeed = speed;
+    }
+
 }

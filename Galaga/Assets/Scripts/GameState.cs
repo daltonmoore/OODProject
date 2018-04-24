@@ -94,6 +94,11 @@ public class GameState : MonoBehaviour {
             GameOver();
     }
 
+    public void AddLife(GameObject o)
+    {
+        LIVES++;
+    }
+
 	void Update () {
 
         if (dead == true && LIVES > 0)
