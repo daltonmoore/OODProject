@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour {
 
@@ -8,8 +9,6 @@ public class GameState : MonoBehaviour {
 	public static int SCORE = 0;
 	public static int LIVES = 3;
 	public static float TIME_ALIVE = 0;
-    public bool gameStart = false;
-    public bool gameOver = false;
     public static double respawnTimer;
     public static bool dead;
     public static int enemyCount = 0;
@@ -101,7 +100,7 @@ public class GameState : MonoBehaviour {
 
 	void Update () {
 
-        if (dead == true && LIVES > 0)
+        if (dead == true && LIVES >= 0)
         {
             respawnTimer -= Time.deltaTime;
             if(respawnTimer < 0)
@@ -116,8 +115,7 @@ public class GameState : MonoBehaviour {
 	}
 
     void GameOver() {
-        gameOver = true;
-        print("Game Over");
+        SceneManager.LoadScene("LoseScreen");
     }
 
 }

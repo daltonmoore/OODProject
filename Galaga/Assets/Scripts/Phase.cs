@@ -38,11 +38,11 @@ public class Phase : MonoBehaviour {
     {
         //print(GameObject.FindGameObjectsWithTag("enemy"));
 
-        if (Time.time > 5 && (counter < maxEnemyCount))
+        if (GameState.TIME_ALIVE > 5 && (counter < maxEnemyCount) && !GameState.dead && !pause)
         {
             if (Time.time > nextspawn)
             {
-                nextspawn += spawnrate;
+                nextspawn = Time.time + spawnrate;
                 enemy = spawner.Fire(phase);
                 counter++;
                 print(counter);
@@ -54,19 +54,26 @@ public class Phase : MonoBehaviour {
         }
         else if (counter == maxEnemyCount && GameObject.FindGameObjectsWithTag("enemy").GetLength(0) == 0)
         {
+            
+
             spawner.pauseSpawner();
             if (pause == false)
             {
+                spawner.defeatable = true;
                 pauseT = Time.time + 3;
                 pause = true;
             }
             if (Time.time > pauseT)
             {
+                pause = false;
+                spawner.defeatable = false;
                 counter = 0;
-                maxEnemyCount += 10;
+                maxEnemyCount += 5;
                 phase++;
                 printPhase();
                 spawnrate = spawnrate - 0.5f;
+                if (spawnrate < 0.5)
+                    spawnrate = 0.5f;
                 spawner.unpauseSpawner();
             }
         }

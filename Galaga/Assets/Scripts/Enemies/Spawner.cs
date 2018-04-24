@@ -1,10 +1,11 @@
 ﻿
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
-    private static Spawner uniqueInstance = new Spawner();
+    private static readonly Spawner uniqueInstance = new Spawner();
     private GameState gameState;
     private Phase phase;
     float spawnrate = 3;
@@ -20,7 +21,8 @@ public class Spawner : MonoBehaviour
     int maxE = 10;
     float time;
     float speed = 1f / 30f;
-    static bool defeatable = false;
+    int health = 5;
+    public bool defeatable = false;
     static bool moveable = true;
 
     private Spawner() { 
@@ -64,7 +66,12 @@ public class Spawner : MonoBehaviour
         {
             Move();
         }
-
+        if (health == 0)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
+        if(defeatable)
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("SpawnerAction");
     }
 
     public void Move()
@@ -130,8 +137,11 @@ public class Spawner : MonoBehaviour
         if (other.tag == "bullet")
         {
             Destroy(other.gameObject);
-            if(defeatable)
-                Destroy(gameObject);
+            if (defeatable)
+            {
+                health -= 1;
+                defeatable = false;
+            }
         }
     }
 
