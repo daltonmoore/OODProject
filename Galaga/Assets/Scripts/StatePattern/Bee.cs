@@ -25,6 +25,10 @@ class Bee : MonoBehaviour
 
     private void Update()
     {
+        if(GameState.dead)
+        {
+            currentState = resetState;
+        }
         if (currentState.flag)
         {
             flyIn();
