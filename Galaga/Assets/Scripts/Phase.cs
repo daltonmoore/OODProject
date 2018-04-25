@@ -29,7 +29,7 @@ public class Phase : MonoBehaviour {
     private void Awake()
     {
         instance = GameObject.Find("GameState").GetComponent<GameState>();
-        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
+        spawner = Spawner.getFactory();
 
     }
 

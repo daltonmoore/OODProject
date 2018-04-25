@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
-    private static readonly Spawner uniqueInstance = new Spawner();
+    private static Spawner uniqueInstance = new Spawner();
     private GameState gameState;
     private Phase phase;
     float spawnrate = 3;
@@ -26,7 +26,8 @@ public class Spawner : MonoBehaviour
     static bool moveable = true;
 
     private Spawner() { 
-}
+
+    }
 
     public void Start()
     {
@@ -68,7 +69,7 @@ public class Spawner : MonoBehaviour
         }
         if (health == 0)
         {
-            SceneManager.LoadScene("WinScene");
+            SceneManager.LoadScene("WinScreen");
         }
         if(defeatable)
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("SpawnerAction");
@@ -152,9 +153,9 @@ public class Spawner : MonoBehaviour
         //Keyword lock behaves similarly to java's synchronized keyword
         lock (uniqueInstance)
         {
-            /*if (uniqueInstance == null)
-                uniqueInstance = GameObject.Find("Spawner").GetComponent<Spawner>();*/
-            return uniqueInstance;
+            if (uniqueInstance == null)
+                uniqueInstance = GameObject.Find("Spawner").GetComponent<Spawner>();
+            return GameObject.Find("Spawner").GetComponent<Spawner>();
         }
     }
 
