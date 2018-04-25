@@ -283,8 +283,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\PhaseSubscriber.cs" />
     <Compile Include="Assets\Scripts\Background\StripReplacer.cs" />
     <Compile Include="Assets\Scripts\Background\StripScroller.cs" />
+    <Compile Include="Assets\Scripts\EmptyClass.cs" />
     <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemies\Grabber.cs" />
     <Compile Include="Assets\Scripts\Enemies\Spawner.cs" />
@@ -305,8 +307,10 @@
     <Compile Include="Assets\Scripts\StatePattern\InitialStateDragonFly.cs" />
     <Compile Include="Assets\Scripts\StatePattern\ResetStateBee.cs" />
     <Compile Include="Assets\Scripts\StatePattern\State.cs" />
+    <Compile Include="Assets\Scripts\Subscriber.cs" />
     <Compile Include="Assets\Scripts\ui\EndScreen.cs" />
     <Compile Include="Assets\Scripts\ui\TitleScreenButtons.cs" />
+    <Compile Include="Assets\UpdateText.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

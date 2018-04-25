@@ -9,17 +9,41 @@ public class Phase : MonoBehaviour {
     Spawner spawner;
     int maxEnemyCount = 5;
     int counter = 0;
-    int phase = 1;
+    static int phase = 1;
     int maxPhase = 3;
     float spawnrate = 3;
     float nextspawn = 3;
     bool pause = false;
     float pauseT;
+	private static List<Subscriber> subscribers = new List<Subscriber>();
 
-    public int getPhase()
+    public static int getPhase()
     {
         return phase;
     }
+
+	public static void reset() {
+		Phase.phase = 1;
+		Phase phase = GameObject.Find("Phase").GetComponent<Phase>();
+		phase.spawnrate = 3;
+		phase.nextspawn = 3;
+		phase.pause = false;
+		phase.counter = 0;
+		phase.maxEnemyCount = 5;
+
+		Spawner s = GameObject.Find("Spawner").GetComponent<Spawner>();
+		s.unpauseSpawner ();
+	}
+
+	public static void subscribe(Subscriber o) {
+		subscribers.Add (o);
+	}
+
+	private void notifySubscribers() {
+		foreach (Subscriber subscriber in subscribers) {
+			subscriber.notify();
+		}
+	}
 
     // Use this for initialization
     void Start () {
@@ -29,7 +53,7 @@ public class Phase : MonoBehaviour {
     private void Awake()
     {
         instance = GameObject.Find("GameState").GetComponent<GameState>();
-        spawner = Spawner.getFactory();
+        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
 
     }
 
@@ -74,7 +98,8 @@ public class Phase : MonoBehaviour {
                 spawnrate = spawnrate - 0.5f;
                 if (spawnrate < 0.5)
                     spawnrate = 0.5f;
-                spawner.unpauseSpawner();
+				spawner.unpauseSpawner();
+				notifySubscribers();
             }
         }
     }

@@ -25,10 +25,6 @@ class DragonFly : MonoBehaviour
 
     private void Update()
     {
-        if (GameState.dead)
-        {
-            currentState = resetSate;
-        }
         if (currentState.flag)
         {
             flyIn();

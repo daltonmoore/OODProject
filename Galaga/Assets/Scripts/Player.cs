@@ -32,42 +32,46 @@ public class Player : MonoBehaviour
     void move()
     {
         if (canMove)
-        {
+		{
+			// Get delta x
+			float x = Input.GetAxis("Horizontal");
+
+			// Apply transformation
+			transform.Translate(x * speed, 0, 0);
+
+			// Clamp transformation
+			Vector3 position = transform.position;
+			position.x = Mathf.Clamp(position.x, -13, 13);
+
+			// Set position based on clamped position
+			transform.position = position;
+
+			// Change sprite based on movement/powerup combo
             if (PowerUpState == false)
             {
-                float x = Input.GetAxis("Horizontal");
                 if (x * speed > 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite =
-                    Resources.Load<Sprite>("PlayerLSWip");
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerLSWip");
                 }
                 else if (x * speed == 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite =
-                    Resources.Load<Sprite>("PlayerWip");
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerWip");
                 }
                 else
                     GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerRSWip");
-
-                transform.Translate(x * speed, 0, 0);
             }
             else
             {
-                float x = Input.GetAxis("Horizontal");
                 if (x * speed > 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite =
-                    Resources.Load<Sprite>("PlayerBLSWip");
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerBLSWip");
                 }
                 else if (x * speed == 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite =
-                    Resources.Load<Sprite>("PlayerBWip");
+                    GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerBWip");
                 }
                 else
                     GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlayerBRSWip");
-
-                transform.Translate(x * speed, 0, 0);
             }
         }
 

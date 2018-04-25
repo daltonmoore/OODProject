@@ -51,8 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\PhaseSubscriber.cs" />
      <Compile Include="Assets\Scripts\Background\StripReplacer.cs" />
      <Compile Include="Assets\Scripts\Background\StripScroller.cs" />
+     <Compile Include="Assets\Scripts\EmptyClass.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Grabber.cs" />
      <Compile Include="Assets\Scripts\Enemies\Spawner.cs" />
@@ -62,7 +64,10 @@
      <Compile Include="Assets\Scripts\Phase.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PowerUps\BlankPowerUp.cs" />
+     <Compile Include="Assets\Scripts\PowerUps\MovementSpeedPwr.cs" />
+     <Compile Include="Assets\Scripts\PowerUps\OneUp.cs" />
      <Compile Include="Assets\Scripts\PowerUps\Powerup.cs" />
+     <Compile Include="Assets\Scripts\PowerUps\ScatterShot.cs" />
      <Compile Include="Assets\Scripts\StatePattern\AttackingStateBee.cs" />
      <Compile Include="Assets\Scripts\StatePattern\Bee.cs" />
      <Compile Include="Assets\Scripts\StatePattern\DragonFly.cs" />
@@ -70,7 +75,10 @@
      <Compile Include="Assets\Scripts\StatePattern\InitialStateDragonFly.cs" />
      <Compile Include="Assets\Scripts\StatePattern\ResetStateBee.cs" />
      <Compile Include="Assets\Scripts\StatePattern\State.cs" />
+     <Compile Include="Assets\Scripts\Subscriber.cs" />
+     <Compile Include="Assets\Scripts\ui\EndScreen.cs" />
      <Compile Include="Assets\Scripts\ui\TitleScreenButtons.cs" />
+     <Compile Include="Assets\UpdateText.cs" />
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>

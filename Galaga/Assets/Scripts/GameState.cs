@@ -75,7 +75,10 @@ public class GameState : MonoBehaviour {
     }
 
     void Start () {
-        
+		GameState.LIVES = 3;
+		GameState.SCORE = 0;
+		GameState.TIME_ALIVE = 0;
+		Phase.reset();
 	}
 
     /*Handles player death. If Lives reaches 0, the game is over.

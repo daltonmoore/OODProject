@@ -47,11 +47,11 @@ public class Turret : MonoBehaviour, Enemy
 
     public void Fire()
     {
-        if (timer + 1.5f + Random.value < Time.time)
+		if (timer + 1.5f + Random.value < Time.time && !GameState.dead)
         {
             timer = Time.time;
             GameObject bulletInstance = Instantiate(bulletPrefab);
-            bulletInstance.transform.position = transform.position;
+            bulletInstance.transform.position = transform.position + new Vector3(0, -0.5f);
             Rigidbody2D r = bulletInstance.GetComponent<Rigidbody2D>();
 
             float width = Random.value * coneSize + (-Random.value * coneSize);
