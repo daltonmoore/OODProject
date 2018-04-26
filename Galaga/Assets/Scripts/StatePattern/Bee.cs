@@ -1,31 +1,73 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class Bee : MonoBehaviour
+class Bee : Subscriber
 { 
     public Vector3 endPos;
 
-    State initialState, attackingState, resetSate;
-
-    public State currentState;
+    State initialState, attackingState, resetState;
+    State currentState;
+    int phase = 1, id;
 
     private void Start()
     {
         initialState = gameObject.AddComponent(typeof(InitialStateBee)) as InitialStateBee;
         attackingState = gameObject.AddComponent(typeof(AttackingStateBee)) as AttackingStateBee;
-        resetSate = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
+        resetState = gameObject.AddComponent(typeof(ResetStateBee)) as ResetStateBee;
 
         currentState = initialState;
         currentState.flag = true;
+
+        Phase.subscribe(this);
+        if (name.Substring(6) == ")")
+        {
+            int.TryParse(name.Substring(5, 1), out id);
+        }
+        else
+        {
+            int.TryParse(name.Substring(5, 2), out id);
+        }
     }
 
     private void Update()
     {
-        if(GameState.dead)
+        switch (phase)
+        {
+            case 1:
+                if (id <= 50)
+                {
+                    return;
+                }
+                break;
+            case 2:
+                if (id <= 40)
+                {
+                    return;
+                }
+                break;
+            case 3:
+                if (id <= 30)
+                {
+                    return;
+                }
+                break;
+            case 4:
+                if (id <= 20)
+                {
+                    return;
+                }
+                break;
+            case 5:
+                if (id <= 10)
+                {
+                    return;
+                }
+                break;
+        }
+        if (GameState.dead)
         {
             currentState = resetState;
         }
@@ -52,10 +94,10 @@ class Bee : MonoBehaviour
             attack();
             if (currentState.resetFlag)
             {
-                currentState = resetSate;
+                currentState = resetState;
             }
         }
-        else if (currentState == resetSate)
+        else if (currentState == resetState)
         {
             reset();
             currentState = initialState;
@@ -89,6 +131,11 @@ class Bee : MonoBehaviour
     public void reset()
     {
         currentState.reset();
+    }
+
+    public override void notify()
+    {
+        phase = Phase.getPhase();
     }
 }
 

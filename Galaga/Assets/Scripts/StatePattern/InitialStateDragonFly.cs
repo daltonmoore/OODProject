@@ -72,7 +72,7 @@ class InitialStateDragonFly : State
                     this.endPos = new Vector3(3, 4);
                     break;
                 case 15:
-                    this.endPos = new Vector3(id % 5 - 2, id / 5);
+                    this.endPos = new Vector3(id % 10 - 5, id / 8);
                     break;
             }
             if (count > 15 && !doneWaiting)
